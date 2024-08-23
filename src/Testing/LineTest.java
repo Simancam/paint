@@ -1,22 +1,47 @@
 package Testing;
 
 import Class.Line;
+import Class.LineType;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import java.awt.Graphics;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
 
 public class LineTest extends JPanel {
 
     private Line basicLine, intermediateLine, advancedLine, bresenhamLine;
 
     public LineTest() {
-        // Inicializar las líneas
-        basicLine = new Line(-150, 50, 100, 200, Color.RED);
-        intermediateLine = new Line(50, -100, 200, 150, Color.GREEN);
-        advancedLine = new Line(-200, -200, 150, 150, Color.BLUE);
-        bresenhamLine = new Line(-200, 200, 200, -200, Color.MAGENTA);  // Ejemplo de Bresenham
+        basicLine = getLine(Color.RED, LineType.basica);
+
+        intermediateLine = getLine(Color.GREEN, LineType.intermedia);
+
+        advancedLine = getLine(Color.BLUE, LineType.avanzada);
+
+        bresenhamLine = getLine(Color.MAGENTA, LineType.bresenham);
+    }
+
+    private Line getLine(Color color, LineType lineType) {
+        try {
+            int x1, x2, y1, y2;
+
+            x1 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el x del primer punto de la linea " + lineType));
+
+            y1 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el y del primer punto de la linea " + lineType));
+
+            x2 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el x del segundo punto de la linea " + lineType));
+
+            y2 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el y del segundo punto de la linea " + lineType));
+
+            return new Line(x1, y1, x2, y2, color);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Debe ser un numero valido");
+            return getLine(color, lineType);
+        }
     }
 
     @Override
@@ -36,7 +61,7 @@ public class LineTest extends JPanel {
     private void drawCartesianPlane(Graphics g) {
         int width = getWidth();
         int height = getHeight();
-        
+
         // Mover el origen (0,0) al centro del JPanel
         g.translate(width / 2, height / 2);
 
