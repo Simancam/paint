@@ -1,9 +1,9 @@
 package Class;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Graphics;
 
-public class Circle extends JPanel {
+public class Circle {
 
     private int xc, yc, r;
 
@@ -13,29 +13,8 @@ public class Circle extends JPanel {
         this.r = r;
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        DibujarPlano(g);
+    public void draw(Graphics g) {
         DibujarCirculo(g, xc, yc, r);
-    }
-
-    private void DibujarPlano(Graphics g) {
-        int width = getWidth();
-        int height = getHeight();
-
-        // Ejes X y Y
-        g.setColor(Color.BLACK);
-        g.drawLine(0, height / 2, width, height / 2);  // Eje X
-        g.drawLine(width / 2, 0, width / 2, height);   // Eje Y
-
-        // Dibujar marcas en los ejes
-        for (int i = 0; i < width; i += 50) {
-            g.drawLine(i, height / 2 - 5, i, height / 2 + 5);  // Marcas en el eje X
-        }
-        for (int i = 0; i < height; i += 50) {
-            g.drawLine(width / 2 - 5, i, width / 2 + 5, i);   // Marcas en el eje Y
-        }
     }
 
     private void DibujarCirculo(Graphics g, int xc, int yc, int r) {
@@ -59,6 +38,7 @@ public class Circle extends JPanel {
     }
 
     private void dibujarPuntosSimetricos(Graphics g, int xc, int yc, int x, int y) {
+        g.setColor(Color.black);
         g.drawLine(xc + x, yc + y, xc + x, yc + y);
         g.drawLine(xc - x, yc + y, xc - x, yc + y);
         g.drawLine(xc + x, yc - y, xc + x, yc - y);
@@ -68,5 +48,4 @@ public class Circle extends JPanel {
         g.drawLine(xc + y, yc - x, xc + y, yc - x);
         g.drawLine(xc - y, yc - x, xc - y, yc - x);
     }
-
 }
